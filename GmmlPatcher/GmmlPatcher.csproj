@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
+    <PackageReference Include="Semver" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\gmml\gmml.vcxproj" ReferenceOutputAssembly="false" Exclude="**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="GmmlHooker">
+      <HintPath>..\GmmlHooker\GmmlHooker.dll</HintPath>
+    </Reference>
+    <Reference Include="GmmlInteropGenerator">
+      <HintPath>..\GmmlInteropGenerator\GmmlInteropGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="UndertaleModLib">
+      <HintPath>..\UndertaleModLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="CopyOutputToShared" AfterTargets="Build">
+    <ItemGroup>
+      <OutputFiles Include="$(OutputPath)\**\*.*" />
+    </ItemGroup>
+    <ReadLinesFromFile File="$(SolutionDir)bin\current.txt">
+      <Output TaskParameter="Lines" PropertyName="SharedOutputPath" />
+    </ReadLinesFromFile>
+    <Copy SourceFiles="@(OutputFiles)" DestinationFolder="$(SharedOutputPath)gmml\patcher\%(RecursiveDir)" SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>
