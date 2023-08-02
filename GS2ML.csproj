@@ -1,10 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="GmmlHooker">
       <HintPath>GmmlHooker\GmmlHooker.dll</HintPath>
     </Reference>
