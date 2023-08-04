@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rando\\OneDrive\\Documents\\GS2ML\\GS2ML\\UndertaleModTool\\UndertaleModLib\\UndertaleModLib.csproj": {}
+    "C:\\Users\\m3roc\\source\\repos\\gsml\\UndertaleModTool\\UndertaleModLib\\UndertaleModLib.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rando\\OneDrive\\Documents\\GS2ML\\GS2ML\\UndertaleModTool\\UndertaleModLib\\UndertaleModLib.csproj": {
+    "C:\\Users\\m3roc\\source\\repos\\gsml\\UndertaleModTool\\UndertaleModLib\\UndertaleModLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rando\\OneDrive\\Documents\\GS2ML\\GS2ML\\UndertaleModTool\\UndertaleModLib\\UndertaleModLib.csproj",
+        "projectUniqueName": "C:\\Users\\m3roc\\source\\repos\\gsml\\UndertaleModTool\\UndertaleModLib\\UndertaleModLib.csproj",
         "projectName": "UndertaleModLib",
-        "projectPath": "C:\\Users\\rando\\OneDrive\\Documents\\GS2ML\\GS2ML\\UndertaleModTool\\UndertaleModLib\\UndertaleModLib.csproj",
-        "packagesPath": "C:\\Users\\rando\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rando\\OneDrive\\Documents\\GS2ML\\GS2ML\\UndertaleModTool\\UndertaleModLib\\obj\\",
+        "projectPath": "C:\\Users\\m3roc\\source\\repos\\gsml\\UndertaleModTool\\UndertaleModLib\\UndertaleModLib.csproj",
+        "packagesPath": "C:\\Users\\m3roc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\m3roc\\source\\repos\\gsml\\UndertaleModTool\\UndertaleModLib\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\rando\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\m3roc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
