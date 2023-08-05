@@ -102,8 +102,8 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 {
     SuspendThread(lpParam); 
     loadMods();
-    //ResumeThread(lpParam);
-    //exit(0);
+    ResumeThread(lpParam);
+    exit(0);
     return 0;
 }
 
