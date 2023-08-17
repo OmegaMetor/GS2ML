@@ -10,6 +10,7 @@
 #include <DbgHelp.h>
 #include <chrono>
 #include <thread>
+#include <intrin.h>
 
 
 constexpr auto PROXY_DLL = TEXT("version.dll");
@@ -61,7 +62,7 @@ void loadMods() {
     LPWSTR executable(argv[0]);
     wchar_t buffer[MAX_PATH];
     GetModuleFileName(NULL, buffer, sizeof(buffer));
-    std::filesystem::path game_directory = std::filesystem::path(buffer).parent_path();
+    std::filesystem::path game_path = std::filesystem::path(buffer);
     for (int i = 0; i < argc; ++i)
     {
         std::wstring argument(argv[i]);
@@ -73,26 +74,38 @@ void loadMods() {
 
     // End check
 
-    std::filesystem::path folder = std::filesystem::path(buffer).parent_path() / "data.win";
-    
+    std::filesystem::path data_win_path = std::filesystem::path(buffer).parent_path() / "data.win";
+
     // Prepare to execute the c# executable.
-    LPWSTR lpCommandLine((LPWSTR)folder.c_str());
-    for (int i = 1; i < argc; ++i) {
-        wcscat_s(lpCommandLine, MAX_PATH, L" ");
-        wcscat_s(lpCommandLine, MAX_PATH, argv[i]);
-    }
 
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
     ZeroMemory(&si, sizeof(STARTUPINFO));
     si.cb = sizeof(STARTUPINFO);
     // Execute c# code
-    std::filesystem::path csExePath = (game_directory / "gs2ml" / "gs2ml-csharp.exe");
+    std::filesystem::path csExePath = (game_path.parent_path() / "gs2ml" / "gs2ml-csharp.exe");
+
+    wchar_t lpCommandLine[MAX_PATH] = L"\0";
+
+    wcscat_s(lpCommandLine, MAX_PATH, L"\"");
+    wcscat_s(lpCommandLine, MAX_PATH, (LPWSTR)csExePath.c_str());
+    wcscat_s(lpCommandLine, MAX_PATH, L"\" ");
+
+    wcscat_s(lpCommandLine, MAX_PATH, L"\"");
+    wcscat_s(lpCommandLine, MAX_PATH, (LPWSTR)data_win_path.c_str());
+    wcscat_s(lpCommandLine, MAX_PATH, L"\" ");
+
+    wcscat_s(lpCommandLine, MAX_PATH, L"\"");
+    wcscat_s(lpCommandLine, MAX_PATH, (LPWSTR)game_path.c_str());
+    wcscat_s(lpCommandLine, MAX_PATH, L"\" ");
+
+
+
     int error;
     error = CreateProcess(csExePath.c_str(), lpCommandLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
-    if(0 != error)
+    if(0 == error)
     {
-        std::cout << error << std::endl;
+        std::cout << "ERROR: " << GetLastError() << std::endl;
     }
 
     LocalFree(argv);

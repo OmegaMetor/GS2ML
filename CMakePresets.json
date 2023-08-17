@@ -1,0 +1,22 @@
+{
+    "version": 5,
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "Default Config",
+            "description": "Default build using Visual Studio 2022 generator",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "${sourceDir}/build/default",
+            "architecture": {
+                "value": "x86",
+                "strategy": "external"
+              }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "Debug",
+            "configurePreset": "default"
+        }
+    ]
+}

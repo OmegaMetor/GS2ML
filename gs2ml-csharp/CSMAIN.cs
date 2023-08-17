@@ -4,6 +4,7 @@ using System.Xml;
 using System.Drawing;
 using System.Reflection;
 using System.Diagnostics;
+using static System.Environment;
 
 //NOTE TO PEOPLE LOOKING AT THIS CODE
 //Path.Combine() breaks the thing sometimes. I DONT KNOW WHY, IT SHOULDNT BE HAPPENING.
@@ -24,46 +25,35 @@ class GS2ML
             //Console.WriteLine(e);
             return;
         }
-        string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        string workingDirectory = System.IO.Path.GetDirectoryName(exePath) + "\\..";
-        string gamePath = workingDirectory;
-        Console.WriteLine("Found game path: " + gamePath);
-        string inputDataWin = "data.win";
-        string outputDataWin = @"GS2ML_CACHE_data.win";
-        string modsDirectory = @"\gs2ml\mods\";
 
+        string originalDataWinPath = args[0];
+        string gameExecutable = args[1];
+        string gs2mlDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        string outputDataWinPath = Path.Combine(Path.GetDirectoryName(originalDataWinPath), "GS2ML_CACHE_data.win");
+        string modsDirectory = Path.Combine(gs2mlDirectory, "mods");
 
-
-        if (!Directory.Exists(Path.Combine(gamePath, @"gs2ml")))
+        if (!Directory.Exists(modsDirectory))
         {
-            Directory.CreateDirectory(Path.Combine(gamePath, @"gs2ml"));
-        }
-        if (!Directory.Exists(Path.Combine(gamePath, @"gs2ml\cache\")))
-        {
-            Directory.CreateDirectory(Path.Combine(gamePath, @"gs2ml\cache\"));
-        }
-        if (!Directory.Exists(Path.Combine(gamePath, @"gs2ml\mods\")))
-        {
-            Directory.CreateDirectory(Path.Combine(gamePath, @"gs2ml\mods\"));
+            Directory.CreateDirectory(modsDirectory);
         }
 
         Console.WriteLine("Creating file stream...");
-        FileStream readStream = File.OpenRead(Path.Combine(gamePath, inputDataWin));
-        Console.WriteLine("Reading unmodified data.win from \"" + Path.Combine(gamePath, inputDataWin) + "\"...");
+        FileStream readStream = File.OpenRead(originalDataWinPath);
+        Console.WriteLine($"Reading unmodified data.win from \"{originalDataWinPath}\"...");
         UndertaleData unmodifiedData = UndertaleIO.Read(readStream, (UndertaleReader.WarningHandlerDelegate)handler, (UndertaleReader.MessageHandlerDelegate)handler2);
         readStream.Dispose();
 
         UndertaleData data = unmodifiedData;
 
         Console.WriteLine("Getting mod directory...");
-        Console.WriteLine(workingDirectory + modsDirectory);
-        string[] modDirectories = Directory.GetDirectories(workingDirectory + modsDirectory);
-
+        Console.WriteLine(modsDirectory);
+        string[] modDirectories = Directory.GetDirectories(modsDirectory);
+        bool hasErrored = false;
         for (int i = 0; i < modDirectories.Length; i++)
         {
-            string modPath = workingDirectory + modsDirectory + Path.GetFileName(modDirectories[i]);
-            Console.WriteLine("Loading mod from \"" + modPath + "\"...");
-            string dllPath = modPath + "\\" + Path.GetFileName(modDirectories[i]) + ".dll";
+            string modPath =  Path.Combine(modsDirectory, Path.GetFileName(modDirectories[i]));
+            Console.WriteLine($"Loading mod from \"{modPath}\"...");
+            string dllPath = Path.Combine(modPath, Path.GetFileName(modDirectories[i]) + ".dll");
             if (File.Exists(dllPath))
             {
                 UndertaleData backupOfBeforeData = data;
@@ -91,35 +81,55 @@ class GS2ML
 
                     int audioGroup = 0;
                     loadMethod.Invoke(instanceOfType, new object[] { audioGroup, data });
-                    Console.WriteLine("Successfully loaded mod \"" + Path.GetFileName(modDirectories[i]) + "\"");
+                    Console.WriteLine($"Successfully loaded mod \"{Path.GetFileName(modDirectories[i])}\"");
                 }
                 catch (TargetInvocationException tie)
                 {
                     Exception e = tie.InnerException;
                     Console.WriteLine("ERROR WHILE LOADING DLL:\n" + e.Message + "\nSTACK TRACE:\n" + e.StackTrace + "\nSkipping to next mod...");
                     data = backupOfBeforeData;
+                    hasErrored = true;
                 }
             }
             else
             {
-                Console.WriteLine("ERROR: Dll file does not exist: " + dllPath + "! Skipping to next mod...");
+                Console.WriteLine($"ERROR: Dll file does not exist: {dllPath}! Skipping to next mod...");
+                hasErrored = true;
             }
         }
 
+        if(hasErrored){
+            Console.Write(
+@"
+
+********************
+There was an error during the mod loading process!
+Please review the above error!
+
+If you wish to continue launching the game, type 'y' and press enter.
+Any other input will close this window without launching the game.
+
+If you continue to launch the game, the mods you have added may not work as expected, or even may not work at all.
+********************
+Continue? (y to continue, anything else to exit.)
+>");
+            string Input = Console.ReadLine();
+            if(Input != "y")
+                return;
+        }
+
         UndertaleData outputData = data;
-        if (File.Exists(workingDirectory + "\\" + outputDataWin))
+        if (File.Exists(outputDataWinPath))
         {
-            File.Delete(workingDirectory + "\\" + outputDataWin);
+            File.Delete(outputDataWinPath);
         }
         Console.WriteLine("Creating file stream...");
-        FileStream writeStream = File.OpenWrite(workingDirectory + "\\" + outputDataWin);
-        Console.WriteLine("Writing modified data.win to \"" + (workingDirectory + "\\" + outputDataWin) + "\"...");
+        FileStream writeStream = File.OpenWrite(outputDataWinPath);
+        Console.WriteLine($"Writing modified data.win to \"{outputDataWinPath}\"...");
         UndertaleIO.Write(writeStream, outputData);
         writeStream.Dispose();
         Console.WriteLine("Done!");
-        Console.WriteLine("Launching Executable from " + workingDirectory + "\\ ORIGINAL.exe...");
-        // Hard Coded to wys!!!!!! Fix soon, not good.
-        Process.Start(workingDirectory + "\\Will You Snail.exe", "-game " + ".\\" + outputDataWin);
-        
+        Console.WriteLine("Launching Executable from " + gameExecutable);
+        Process.Start(gameExecutable, $"-game \"{outputDataWinPath}\"");
     }
 }
