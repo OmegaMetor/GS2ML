@@ -28,9 +28,12 @@ constexpr auto PROXY_MAX_PATH = 260;
 #undef DLL_NAME
 
 std::filesystem::path getSystemDirectory() {
-    const auto systemDirectory(std::make_unique<TCHAR[]>(PROXY_MAX_PATH));
-    ::GetSystemDirectory(systemDirectory.get(), PROXY_MAX_PATH);
-    return {systemDirectory.get()};
+    wchar_t SystemDirectoryPath[MAX_PATH] = { 0 };
+    
+    if (!GetSystemDirectoryW(SystemDirectoryPath, MAX_PATH))
+        std::cout << "GetSystemDirectoryW fails: " << GetLastError() << std::endl;
+
+    return SystemDirectoryPath;
 }
 
 bool hasLoaded = false;
@@ -107,6 +110,11 @@ void loadMods() {
     {
         std::cout << "ERROR: " << GetLastError() << std::endl;
     }
+    else
+    {
+        CloseHandle(pi.hProcess);
+        CloseHandle(pi.hThread);
+    }
 
     LocalFree(argv);
 }
@@ -121,39 +129,32 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
-    bool shouldLoad = false;
-    switch(ul_reason_for_call) {
-        case DLL_PROCESS_ATTACH:
-            AllocConsole();
-            freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
-            if(!loadProxy()) {
-                return FALSE;
-            }
-            shouldLoad = true;
-            break;
-        case DLL_THREAD_ATTACH:
-        case DLL_THREAD_DETACH:
-        case DLL_PROCESS_DETACH:
-        default:
-            break;
+
+    if (ul_reason_for_call != DLL_PROCESS_ATTACH)
+        return TRUE;
+
+    AllocConsole();
+    freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
+    if (!loadProxy()) {
+        return FALSE;
     }
-    if (shouldLoad) {
-        LPWSTR lpCmdLine = GetCommandLine();
-        std::wstring commandLine(lpCmdLine);
-        int argc;
-        LPWSTR* argv = CommandLineToArgvW(lpCmdLine, &argc);
-        for (int i = 0; i < argc; ++i)
-        {
-            std::wstring argument(argv[i]);
-            if (argument == L"-game")
-                hasGameArg = true;
-        }
-        if (!hasGameArg) {
-            HANDLE thisThread;
-            DuplicateHandle(GetCurrentProcess(), GetCurrentThread(), GetCurrentProcess(), &thisThread, 0, FALSE, DUPLICATE_SAME_ACCESS);
-            HANDLE loaderThread = CreateThread(NULL, 0, ThreadProc, thisThread, 0, NULL);
-            if (loaderThread == 0) return FALSE;
-        }
+
+    LPWSTR lpCmdLine = GetCommandLine();
+    std::wstring commandLine(lpCmdLine);
+    int argc;
+    LPWSTR* argv = CommandLineToArgvW(lpCmdLine, &argc);
+    for (int i = 0; i < argc; ++i)
+    {
+        std::wstring argument(argv[i]);
+        if (argument == L"-game")
+            hasGameArg = true;
     }
+    if (!hasGameArg) {
+        HANDLE thisThread = OpenThread(THREAD_ALL_ACCESS, FALSE, GetCurrentThreadId());
+        HANDLE loaderThread = CreateThread(NULL, 0, ThreadProc, thisThread, 0, NULL);
+        if (loaderThread == 0) 
+            return FALSE;
+    }
+
     return TRUE;
 }
