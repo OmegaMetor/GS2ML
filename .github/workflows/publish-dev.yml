@@ -22,7 +22,7 @@ jobs:
 
     - uses: vimtor/action-zip@v1
       with:
-        files: artifacts/gm2ml.win64
+        files: artifacts/gs2ml-win64
         dest: gm2ml.win64.zip
 
     - name: Update release
