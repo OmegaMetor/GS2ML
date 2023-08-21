@@ -34,5 +34,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: gs2ml-win-${{ matrix.platform }}-${{ matrix.configuration }}
+        name: gs2ml-win64
         path: .\out\bin
