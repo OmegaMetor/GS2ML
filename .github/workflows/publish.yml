@@ -27,7 +27,7 @@ jobs:
 
     - name: Set Short SHA
       id: set_short_sha
-      run: echo "::set-output name=short_sha::${{ github.sha::7 }}"
+      run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
     - name: Create Release
       id: create_release
