@@ -25,18 +25,14 @@ jobs:
         files: artifacts/gs2ml-win64
         dest: gm2ml-win64.zip
 
-    - name: Set Short SHA
-      id: set_short_sha
-      run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.set_short_sha.outputs.short_sha }}
-        release_name: Development release, commit ${{ steps.set_short_sha.outputs.short_sha }}
+        tag_name: ${{ github.sha[0-7] }}
+        release_name: Development release, commit ${{ github.sha[0-7] }}
         draft: false
         prerelease: false
 
