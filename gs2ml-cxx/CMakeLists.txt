@@ -12,8 +12,6 @@ add_library(gs2ml-cxx SHARED "src/dllmain.cpp" "res/version.def")
 
 target_include_directories(gs2ml-cxx PRIVATE "include/")
 
-target_link_libraries(gs2ml-cxx "C:/Program Files/dotnet/packs/Microsoft.NETCore.App.Host.win-x64/7.0.7/runtimes/win-x64/native/nethost.lib")
-
 set_target_properties(gs2ml-cxx PROPERTIES OUTPUT_NAME "version")
 
 add_custom_command(TARGET gs2ml-cxx POST_BUILD
