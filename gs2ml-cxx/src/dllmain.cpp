@@ -27,6 +27,8 @@ constexpr auto PROXY_MAX_PATH = 260;
 
 #undef DLL_NAME
 
+std::vector<std::wstring> ogArgs;
+
 std::filesystem::path getSystemDirectory() {
     wchar_t SystemDirectoryPath[MAX_PATH] = { 0 };
     
@@ -126,7 +128,7 @@ void loadMods(const std::vector<std::wstring>& originalArgs) {
 DWORD WINAPI ThreadProc(LPVOID lpParam)
 {
     SuspendThread(lpParam); 
-    loadMods();
+    loadMods(ogArgs);
     ResumeThread(lpParam);
     exit(0);
     return 0;
@@ -148,10 +150,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
     LPWSTR* argv = CommandLineToArgvW(lpCmdLine, &argc);
 
     // Create a vector to store the original command line arguments.
-    std::vector<std::wstring> originalArgs;
     for (int i = 0; i < argc; ++i)
     {
-        originalArgs.push_back(argv[i]);
+        ogArgs.push_back(argv[i]);
         std::wstring argument(argv[i]);
         if (argument == L"-game")
             hasGameArg = true;
