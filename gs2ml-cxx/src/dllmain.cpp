@@ -11,7 +11,7 @@
 #include <chrono>
 #include <thread>
 #include <intrin.h>
-
+#include <vector>
 
 constexpr auto PROXY_DLL = TEXT("version.dll");
 constexpr auto PROXY_MAX_PATH = 260;
@@ -53,7 +53,7 @@ bool loadProxy() {
     return true;
 }
 
-void loadMods() {
+void loadMods(const std::vector<std::wstring>& originalArgs) {
     // Check if the game is being launched with the -game argument.
     if (hasGameArg || hasLoaded) return;
     hasLoaded = true;
@@ -79,36 +79,40 @@ void loadMods() {
 
     std::filesystem::path data_win_path = std::filesystem::path(buffer).parent_path() / "data.win";
 
-    // Prepare to execute the c# executable.
+    // Prepare to execute the C# executable.
 
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
     ZeroMemory(&si, sizeof(STARTUPINFO));
     si.cb = sizeof(STARTUPINFO);
-    // Execute c# code
+
+    // Build the command line arguments for the C# executable.
+    std::wstring csExeArgs;
+    for (const auto& arg : originalArgs) {
+        csExeArgs += L"\"";
+        csExeArgs += arg;
+        csExeArgs += L"\" ";
+    }
+
     std::filesystem::path csExePath = (game_path.parent_path() / "gs2ml" / "gs2ml-csharp.exe");
 
-    wchar_t lpCommandLine[MAX_PATH] = L"\0";
-
-    wcscat_s(lpCommandLine, MAX_PATH, L"\"");
-    wcscat_s(lpCommandLine, MAX_PATH, (LPWSTR)csExePath.c_str());
-    wcscat_s(lpCommandLine, MAX_PATH, L"\" ");
-
-    wcscat_s(lpCommandLine, MAX_PATH, L"\"");
-    wcscat_s(lpCommandLine, MAX_PATH, (LPWSTR)data_win_path.c_str());
-    wcscat_s(lpCommandLine, MAX_PATH, L"\" ");
-
-    wcscat_s(lpCommandLine, MAX_PATH, L"\"");
-    wcscat_s(lpCommandLine, MAX_PATH, (LPWSTR)game_path.c_str());
-    wcscat_s(lpCommandLine, MAX_PATH, L"\" ");
-
-
-
     int error;
-    error = CreateProcess(csExePath.c_str(), lpCommandLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
-    if(0 == error)
+    error = CreateProcess(
+        csExePath.c_str(),
+        csExeArgs.data(),
+        NULL,
+        NULL,
+        FALSE,
+        0,
+        NULL,
+        NULL,
+        &si,
+        &pi
+    );
+
+    if (error == 0)
     {
-        std::cout << "ERROR: " << GetLastError() << std::endl;
+        std::wcout << L"ERROR: " << GetLastError() << std::endl;
     }
     else
     {
@@ -129,7 +133,6 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
-
     if (ul_reason_for_call != DLL_PROCESS_ATTACH)
         return TRUE;
 
@@ -143,12 +146,17 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
     std::wstring commandLine(lpCmdLine);
     int argc;
     LPWSTR* argv = CommandLineToArgvW(lpCmdLine, &argc);
+
+    // Create a vector to store the original command line arguments.
+    std::vector<std::wstring> originalArgs;
     for (int i = 0; i < argc; ++i)
     {
+        originalArgs.push_back(argv[i]);
         std::wstring argument(argv[i]);
         if (argument == L"-game")
             hasGameArg = true;
     }
+
     if (!hasGameArg) {
         HANDLE thisThread = OpenThread(THREAD_ALL_ACCESS, FALSE, GetCurrentThreadId());
         HANDLE loaderThread = CreateThread(NULL, 0, ThreadProc, thisThread, 0, NULL);
