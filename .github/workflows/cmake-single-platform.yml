@@ -8,7 +8,11 @@ on:
   pull_request:
     branches:
     - '**'
+    paths-exclude:
+      - 'docs/**'
   push:
+    paths-exclude:
+      - 'docs/**'
     branches:
     - '**'
     - '!main'
