@@ -66,6 +66,7 @@ void loadMods() {
     wchar_t buffer[MAX_PATH];
     GetModuleFileName(NULL, buffer, sizeof(buffer));
     std::filesystem::path game_path = std::filesystem::path(buffer);
+    
     for (int i = 0; i < argc; ++i)
     {
         std::wstring argument(argv[i]);
@@ -87,22 +88,34 @@ void loadMods() {
     si.cb = sizeof(STARTUPINFO);
     // Execute c# code
     std::filesystem::path csExePath = (game_path.parent_path() / "gs2ml" / "gs2ml-csharp.exe");
+    #define max_size 5120
+    wchar_t lpCommandLine[max_size] = L"\0";
 
-    wchar_t lpCommandLine[MAX_PATH] = L"\0";
+    #define concat_cmd(cmdline, path) \
+    wcscat_s(cmdline, max_size, L"\""); \
+    wcscat_s(cmdline, max_size, (LPWSTR)path.c_str()); \
+    wcscat_s(cmdline, max_size, L"\" ")
 
-    wcscat_s(lpCommandLine, MAX_PATH, L"\"");
-    wcscat_s(lpCommandLine, MAX_PATH, (LPWSTR)csExePath.c_str());
-    wcscat_s(lpCommandLine, MAX_PATH, L"\" ");
+    concat_cmd(lpCommandLine, csExePath);
+    concat_cmd(lpCommandLine, data_win_path);
+    concat_cmd(lpCommandLine, game_path);
 
-    wcscat_s(lpCommandLine, MAX_PATH, L"\"");
-    wcscat_s(lpCommandLine, MAX_PATH, (LPWSTR)data_win_path.c_str());
-    wcscat_s(lpCommandLine, MAX_PATH, L"\" ");
+    std::wstring cliString;
+    
+    if(argc > 1){
+        for (int i = 1; i < argc; ++i) {
+            std::wstring arg(argv[i]);
+            cliString += L'"' + arg + L'"'; // Quote each argument and add to the command line
+            cliString += L' '; // Add a space between arguments
+        }
+    }
+    
+    // Remove the trailing space
+    if (!cliString.empty()) {
+        cliString.pop_back();
+    }
 
-    wcscat_s(lpCommandLine, MAX_PATH, L"\"");
-    wcscat_s(lpCommandLine, MAX_PATH, (LPWSTR)game_path.c_str());
-    wcscat_s(lpCommandLine, MAX_PATH, L"\" ");
-
-
+    wcscat_s(lpCommandLine, max_size, cliString.c_str());
 
     int error;
     error = CreateProcess(csExePath.c_str(), lpCommandLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);

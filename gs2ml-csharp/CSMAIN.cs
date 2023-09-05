@@ -25,7 +25,6 @@ class GS2ML
             //Console.WriteLine(e);
             return;
         }
-
         string originalDataWinPath = args[0];
         string gameExecutable = args[1];
         string gs2mlDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -130,6 +129,13 @@ Continue? (y to continue, anything else to exit.)
         writeStream.Dispose();
         Console.WriteLine("Done!");
         Console.WriteLine("Launching Executable from " + gameExecutable);
-        Process.Start(gameExecutable, $"-game \"{outputDataWinPath}\"");
+        string argstring = "";
+        for(int i = 2; i < args.Length; i++)
+        {
+            argstring += " \"";
+            argstring += args[i];
+            argstring += "\"";
+        }
+        Process.Start(gameExecutable, $"-game \"{outputDataWinPath}\"" + argstring);
     }
 }
