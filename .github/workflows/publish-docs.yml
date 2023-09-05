@@ -21,7 +21,7 @@ jobs:
       - name: Install, build, and upload docs.
         uses: withastro/action@v0
         with:
-          path: /docs
+          path: docs/
           node-version: 18
 
   deploy:
