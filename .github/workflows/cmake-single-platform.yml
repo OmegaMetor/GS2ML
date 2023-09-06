@@ -51,7 +51,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: gs2ml-win64
+        name: mod_template
         path: .\mod_template
         asset_name: mod_template.zip
         asset_content_type: application/zip
