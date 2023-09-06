@@ -12,6 +12,7 @@ add_custom_command(TARGET gsml-csharp POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/bin/Debug/net6.0/gs2ml-csharp.runtimeconfig.json "${Output_Bin_Dir}/gs2ml/"
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/bin/Debug/net6.0/gs2ml-csharp.deps.json "${Output_Bin_Dir}/gs2ml/"
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/bin/Debug/net6.0/UndertaleModLib.dll "${Output_Bin_Dir}/gs2ml/"
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/bin/Debug/net6.0/UndertaleModLib.dll "${CMAKE_SOURCE_DIR}/mod_template/"
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/bin/Debug/net6.0/ICSharpCode.SharpZipLib.dll "${Output_Bin_Dir}/gs2ml/"
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/bin/Debug/net6.0/Microsoft.Win32.SystemEvents.dll "${Output_Bin_Dir}/gs2ml/"
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/bin/Debug/net6.0/PropertyChanged.dll "${Output_Bin_Dir}/gs2ml/"
