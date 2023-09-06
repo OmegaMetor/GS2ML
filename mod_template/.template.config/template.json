@@ -5,16 +5,5 @@
     "name": "GS2ML Mod Template",
     "classifications": [],
     "sourceName": "GS2ML_MOD_NAME",
-    "shortName": "gs2ml",
-    "postActions": [
-        {
-            "actionId":"AC1156F7-BB77-4DB8-B28F-24EEBCCA1E5C",
-            "description": "Please add UndertaleModLib.dll!",
-            "manualInstructions": [
-                {
-                    "text": "Please locate the UndertaleModLib.dll used for GS2ML in your games install directory and copy it to this project folder, at Project_Root/UndertaleModLib.dll"
-                }
-            ]
-        }
-    ]
+    "shortName": "gs2ml"
 }

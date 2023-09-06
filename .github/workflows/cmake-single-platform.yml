@@ -47,3 +47,11 @@ jobs:
         path: .\out\bin
         asset_name: gm2ml-win64.zip
         asset_content_type: application/zip
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: gs2ml-win64
+        path: .\mod_template
+        asset_name: mod_template.zip
+        asset_content_type: application/zip
