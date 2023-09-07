@@ -4,7 +4,7 @@ import starlight from '@astrojs/starlight';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://omegametor.github.io',
-  	base: '/gs2ml/',
+  	base: '/GS2ML/',
 	integrations: [
 		starlight({
 			title: 'GS2ML Documentation',
