@@ -11,6 +11,9 @@ export default defineConfig({
 			social: {
 				github: 'https://github.com/OmegaMetor/GS2ML',
 			},
+			editLink: {
+				baseUrl: "https://github.com/OmegaMetor/GS2ML/edit/main/docs/"
+			},
 			sidebar: [
 				{
 					label: 'Guides',
