@@ -5,7 +5,7 @@ on:
   push:
     branches:
     - 'main'
-    paths-exclude:
+    paths-ignore:
       - 'docs/**'
       - '.github/workflows/publish-docs.yml'
 

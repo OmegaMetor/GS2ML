@@ -11,7 +11,7 @@ on:
     paths-exclude:
       - 'docs/**'
   push:
-    paths-exclude:
+    paths-ignore:
       - 'docs/**'
       - '.github/workflows/publish-docs.yml'
     branches:
