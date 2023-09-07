@@ -13,6 +13,7 @@ on:
   push:
     paths-exclude:
       - 'docs/**'
+      - '.github/workflows/publish-docs.yml'
     branches:
     - '**'
     - '!main'
