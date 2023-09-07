@@ -7,4 +7,4 @@ Fun
 
 ## Further reading
 
-- Read [how to install](/guides/installation/) in the install guide.
+- Read [how to install](guides/installation/) in the install guide.
