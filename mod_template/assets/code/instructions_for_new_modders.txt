@@ -1,0 +1,2 @@
+Put your GML code files in this folder!
+IDEs like Visual Studio Code have GML code highlighting extensions, so you'll probably want one of those. :)

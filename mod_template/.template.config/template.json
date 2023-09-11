@@ -5,5 +5,35 @@
     "name": "GS2ML Mod Template",
     "classifications": [],
     "sourceName": "GS2ML_MOD_NAME",
-    "shortName": "gs2ml"
+    "shortName": "gs2ml",
+    "symbols": {
+        "easymode": {
+            "type":"parameter",
+            "defaultValue": "false",
+            "datatype": "bool",
+            "description": "Enables \"Easy mode\", which provides a base for loading things from files."
+        }
+    },
+    "sources": [
+        {
+            "include": [
+                "**/*"
+            ],
+            "exclude": [
+                "**/[Bb]in/**",
+                "**/[Oo]bj/**",
+                ".template.config/**/*",
+                "**/*.filelist",
+                "**/*.user",
+                "**/*.lock.json",
+                "**/assets/**"
+            ]
+        },
+        {
+            "include": [
+                "**/assets/**"
+            ],
+            "condition": "easymode"
+        }
+    ]
 }
