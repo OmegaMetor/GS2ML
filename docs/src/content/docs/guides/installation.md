@@ -1,6 +1,6 @@
 ---
 title: Installing GS2ML
-description: A guide in my new Starlight docs site.
+description: GS2ML Installation Guide
 ---
 
 There are a few different ways to install GS2ML. These range in complexity but sometimes can be needed.
