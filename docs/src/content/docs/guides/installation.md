@@ -1,7 +1,8 @@
 ---
 title: Installing GS2ML
 description: GS2ML Installation Guide
-order: 1
+sidebar:
+  order: 1
 ---
 
 There are a few different ways to install GS2ML. These range in complexity but sometimes can be needed.

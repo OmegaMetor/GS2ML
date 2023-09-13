@@ -2,7 +2,7 @@
 title: Mod Development Information
 description: GS2ML Mod Development Information
 sidebar:
-  order: 1
+  order: 2
 ---
 
 # Table of contents
