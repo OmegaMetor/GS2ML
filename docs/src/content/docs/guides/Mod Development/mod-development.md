@@ -7,8 +7,10 @@ sidebar:
 
 # Table of contents
 
+To get started making mods, take 
+
 ## Normal method
-[Hooking functions & object events](/GS2ML/guides/Mod%20Development/hooking)  
+[Hooking functions & object events](/GS2ML/guides/mod-development/hooking)  
 (More coming soon)
 
 ## Easy template
