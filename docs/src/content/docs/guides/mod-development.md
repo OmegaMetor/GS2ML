@@ -6,7 +6,8 @@ description: GS2ML Mod Development Guide
 # Table of contents
 
 ## Normal method
-(insert links here)
+[Hooking functions & object events](/GS2ML/guides/functions/hooking)
+(More coming soon)
 
 ## Easy template
-(insert link her)
+(Insert links here when they are ready)
