@@ -20,7 +20,7 @@ function my_cool_function(argument0, argument1){
 You want the function to ALWAYS return \[foo, 0\] instead of \[foo, foofoo\].
 
 You COULD just copy the original code, make changes to it, and replace the code with the modified code, but it's much more clean to just hook.  
-Plus, in this case important_variable is being set to a STRUCT, which, as of the time this is being written, UndertaleModLib does not support recompiling, meaninng you cannot make changes to this function by copying it.
+Plus, in this case important_variable is being set to a STRUCT, which, as of the time this is being written, UndertaleModLib does not support recompiling, meaning you cannot make changes to this function by copying it.
 
 SO, let's HOOK the function instead.  
 When you hook a function, the original code for the function is moved to a SEPARATE function. So you would end up with
