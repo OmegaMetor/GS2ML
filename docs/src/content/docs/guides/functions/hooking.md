@@ -50,8 +50,7 @@ GS2ML will replace any instace of `#orig#` with the name of the function that co
 my_cool_function_original()
 ```
 
-Currently, however, this code will return an error. This is because, in the original function, foo and foofoo are LOCAL variables, NOT object variables, meaning they only have a value while `my_cool_function_original` is being run.  
-So you can't carry over to your custom code.  
+Currently, however, this code will return an error. This is because, in the original function, foo and foofoo are LOCAL variables, NOT object variables, meaning they only have a value while `my_cool_function_original` is being run.   
 So, we need to make use of what `#orig#` returns, because, like I said, we are calling the original code as a function, meaning we can recieve what it returns.  
 ```gnl
 var returned_value = #orig#()
