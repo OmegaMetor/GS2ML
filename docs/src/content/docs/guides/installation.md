@@ -18,7 +18,7 @@ alternatively, you can use winget (if you have it installed) by running `winget 
 Releases are published by github actions every time there is a commit pushed to the repo. These will be the most up to date and also the most likely to contain unknown bugs and issues. However, this is the reccomended method for installing it simply due to it's ease.
 
 ### Getting the release
-You can download the latest release from [the releases page](https://github.com/OmegaMetor/GS2ML/releases). For most people, the `gs2ml-win64.zip` is the only one you need. (If you want to make mods, [check out modding guide!](/GS2ML/guides/modding/mod-development.md))
+You can download the latest release from [the releases page](https://github.com/OmegaMetor/GS2ML/releases). For most people, the `gs2ml-win64.zip` is the only one you need. (If you want to make mods, [check out modding guide!](/GS2ML/guides/Mod%20Development/mod-development.md))
 
 ### Locating your game files
 Next, you'll want to find the place where your game is installed. This folder should contain an exe for the game and a data.win file for the games data. For games installed through Steam, you can use the browse local files option to easily open it.
