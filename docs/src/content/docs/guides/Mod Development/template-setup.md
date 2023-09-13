@@ -5,3 +5,4 @@ sidebar:
   order: 4
 ---
 
+Template setup instructions
