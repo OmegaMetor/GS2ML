@@ -5,7 +5,7 @@ description: How to hook to object events and scripts, allowing you to still run
 # Hooking
 
 ## What is hooking?
-Hooking is a GS2ML feature that is ~~stolen from~~~ based on [GMML](https://github.com/cgytrus/gmml)'s hooker functions, as GS2ML is intended to be a replacement for GMML. It allows you to change code originally in the game, while also being able to call the ORIGINAL code like a function, meaning you can edit scripts that you normally couldn't compile with UndertaleModTool.
+Hooking is a GS2ML feature that is ~~stolen from~~ based on [GMML](https://github.com/cgytrus/gmml)'s hooker functions, as GS2ML is intended to be a replacement for GMML. It allows you to change code originally in the game, while also being able to call the ORIGINAL code like a function, meaning you can edit scripts that you normally couldn't compile with UndertaleModTool.
 
 ## How does hooking work? (GML example)
 Let's say you have a function that is in the unmodified files of the game you are editing:
