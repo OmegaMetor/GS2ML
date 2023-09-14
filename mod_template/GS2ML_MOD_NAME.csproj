@@ -13,4 +13,13 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
+<!--#if ( easymode ) -->
+  <Target Name="CopyAssets" AfterTargets="AfterBuild">
+    <ItemGroup>
+      <Assets Include="assets/**/*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Assets)" DestinationFolder="$(TargetDir)/assets/%(RecursiveDir)" SkipUnchangedFiles="false" />
+  </Target>
+<!--#endif -->
+
 </Project>

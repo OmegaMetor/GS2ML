@@ -13,7 +13,7 @@ namespace GS2ML_MOD_NAME;
 public class GS2ML_MOD_NAME
 {
 #if( easymode )
-    public string modPath;
+    public string assetPath;
 
     public Dictionary<string, string> files = new Dictionary<string, string>();
 
@@ -31,7 +31,7 @@ public class GS2ML_MOD_NAME
 
 
         //Get the path of the dll that the mod is running on.
-        modPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        assetPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "assets");
         
         
         
@@ -39,7 +39,7 @@ public class GS2ML_MOD_NAME
         AddObjects();
 
         Console.WriteLine($"[GS2ML_MOD_NAME]: Loading code from files...");
-        files = LoadCodeFromFiles(Path.Combine(modPath, "code"));
+        files = LoadCodeFromFiles(Path.Combine(assetPath, "code"));
 
 
         //  For adding sprites and sounds, I suggest you use GML's sprite_add, sprite_replace, and audio_create_stream functions instead of C#,
