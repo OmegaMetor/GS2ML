@@ -2,7 +2,7 @@
 title: Hooking to object events/scripts
 description: How to hook to object events and scripts, allowing you to still run the original code along with custom code, and also edit code that normally can't decompile.
 sidebar:
-  order: 3
+  order: 4
 ---
 # Hooking
 

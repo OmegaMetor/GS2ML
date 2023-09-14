@@ -2,7 +2,7 @@
 title: Mod Template Setup
 description: Instructions for setting up the gs2ml mod template
 sidebar:
-  order: 4
+  order: 3
 ---
 
 The template is the easiest way to start making a gs2ml mod. When used, it automatically generates the base needed for a mod.
