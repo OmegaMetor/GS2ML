@@ -41,7 +41,7 @@ jobs:
     - name: Zip Artifact
       uses: vimtor/action-zip@v1
       with:
-        files: mod-template
+        files: mod_template
         dest: mod-template.zip
         
     - id: get-id
@@ -76,6 +76,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.github_token }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./mod_template.zip
-        asset_name: mod_template.zip
+        asset_path: ./mod-template.zip
+        asset_name: mod-template.zip
         asset_content_type: application/zip
