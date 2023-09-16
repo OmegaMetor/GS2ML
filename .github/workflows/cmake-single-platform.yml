@@ -43,7 +43,7 @@ jobs:
 
     - name: Tar GS2ML
       run: |
-       dir
+       dir out
        tar -cvf gs2ml-win64.tar .\out\bin\
        
 
