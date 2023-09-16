@@ -31,7 +31,7 @@ jobs:
     - name: Zip Artifact
       uses: vimtor/action-zip@v1
       with:
-        files: gs2ml-win64
+        files: ./out/bin/*
         dest: gm2ml-win64.zip
 
     - name: Untar mod template
