@@ -35,7 +35,9 @@ jobs:
         dest: gm2ml-win64.zip
 
     - name: Untar mod template
-      run: tar -xvf artifacts/mod-template/mod-template.tar
+      run: |
+        dir artifacts/mod-template/
+        tar -xvf artifacts/mod-template/mod-template.tar
 
     - name: Zip Artifact
       uses: vimtor/action-zip@v1
