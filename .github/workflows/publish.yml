@@ -26,7 +26,7 @@ jobs:
         path: ${{ github.workspace }}/artifacts
 
     - name: Untar GS2ML
-      run: tar -xvf artifacts/gs2ml-win64
+      run: tar -xvf artifacts/gs2ml-win64/gs2ml-win64.tar
 
     - name: Zip Artifact
       uses: vimtor/action-zip@v1
@@ -35,7 +35,7 @@ jobs:
         dest: gm2ml-win64.zip
 
     - name: Untar mod template
-      run: tar -xvf artifacts/mod-template
+      run: tar -xvf artifacts/mod-template/mod_template.tar
 
     - name: Zip Artifact
       uses: vimtor/action-zip@v1
