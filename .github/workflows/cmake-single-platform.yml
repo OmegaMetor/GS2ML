@@ -8,7 +8,7 @@ on:
   pull_request:
     branches:
     - '**'
-    paths-exclude:
+    paths-ignore:
       - 'docs/**'
   push:
     paths-ignore:
@@ -41,20 +41,21 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - run: mkdir .\out\bin\funnytest
+    - name: Tar GS2ML
+      run: tar -cvf gs2ml-win64.tar .\out\bin\
 
+      
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: gs2ml-win64
-        path: .\out\bin
-        asset_name: gm2ml-win64.zip
-        asset_content_type: application/zip
+        path: gs2ml-win64.tar
+
+    - name: Tar template
+      run: tar -cvf mod-template.tar .\mod_template
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: mod_template
-        path: .\mod_template
-        asset_name: mod_template.zip
-        asset_content_type: application/zip
+        path: .\mod-template.tar
