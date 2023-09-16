@@ -36,8 +36,7 @@ jobs:
 
     - name: Untar mod template
       run: |
-        dir artifacts/mod-template/
-        tar -xvf artifacts/mod-template/mod-template.tar
+        tar -xvf artifacts/mod_template/mod-template.tar
 
     - name: Zip Artifact
       uses: vimtor/action-zip@v1
