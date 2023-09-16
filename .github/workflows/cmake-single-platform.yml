@@ -42,7 +42,10 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Tar GS2ML
-      run: tar -cvf gs2ml-win64.tar .\out\bin\
+      run: |
+       dir
+       tar -cvf gs2ml-win64.tar .\out\bin\
+       
 
       
     - name: Upload artifact
