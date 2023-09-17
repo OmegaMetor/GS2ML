@@ -59,7 +59,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.get-id.outputs.id }}
+        tag_name: indev-release
         release_name: Development release, commit ${{ steps.get-id.outputs.id }}
         draft: false
         prerelease: false
