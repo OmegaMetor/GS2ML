@@ -18,8 +18,14 @@
     <ItemGroup>
       <Assets Include="assets/**/*.*" />
     </ItemGroup>
+    <RemoveDir Directories="$(TargetDir)/assets">
     <Copy SourceFiles="@(Assets)" DestinationFolder="$(TargetDir)/assets/%(RecursiveDir)" SkipUnchangedFiles="false" />
   </Target>
 <!--#endif -->
-
+    <Target Name="CopyIncludes" AfterTargets="AfterBuild">
+	    <ItemGroup>
+		    <Assets Include="IncludedFiles/**/*.*" />
+	    </ItemGroup>
+	    <Copy SourceFiles="@(Assets)" DestinationFolder="$(TargetDir)/%(RecursiveDir)" SkipUnchangedFiles="false" />
+    </Target>
 </Project>

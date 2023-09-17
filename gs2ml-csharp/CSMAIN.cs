@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Reflection;
 using System.Diagnostics;
 using static System.Environment;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 //NOTE TO PEOPLE LOOKING AT THIS CODE
 //Path.Combine() breaks the thing sometimes. I DONT KNOW WHY, IT SHOULDNT BE HAPPENING.
@@ -48,11 +50,48 @@ class GS2ML
         Console.WriteLine(modsDirectory);
         string[] modDirectories = Directory.GetDirectories(modsDirectory);
         bool hasErrored = false;
+
+        List<ModInfo> modDataList = new List<ModInfo>();
         for (int i = 0; i < modDirectories.Length; i++)
         {
-            string modPath =  Path.Combine(modsDirectory, Path.GetFileName(modDirectories[i]));
+            string modPath = Path.Combine(modsDirectory, Path.GetFileName(modDirectories[i]));
+            Console.WriteLine($"Getting mod info from \"{modPath}\"...");
+            if(File.Exists(Path.Combine(modPath, "modinfo.json")))
+            {
+                string jsonText = File.ReadAllText(Path.Combine(modPath, "modinfo.json"));
+                try
+                {
+                    ModInfo modData = JsonSerializer.Deserialize<ModInfo>(jsonText);
+                    modData.modPath = modDirectories[i];
+                    modDataList.Add(modData);
+                } catch(Exception e)
+                {
+                    Console.WriteLine("Mod has invalid modinfo.json! Please fix or contact mod developer!");
+                    hasErrored = true;
+                    break;
+                }
+            } else
+            {
+                Console.WriteLine($"There is no mod info file for \"{modPath}\".\nThis isn't an error (most likely).\nWe will still attempt to load the mod without the mod info json file.\nWARNING: THIS WILL ERROR IN A FUTURE VERSION OF GS2ML!!!\nPausing so this message is seen, press enter to continue loading.");
+                Console.ReadLine();
+                ModInfo modData = new ModInfo
+                {
+                    modName = "Unknown mod " + i.ToString(),
+                    authors = new string[]{ "Unknown Author" },
+                    description = "This mod does not have a modinfo.json file. This could be because it is an old mod or because the owner forgot to add one.",
+                    priority = 999999 // If it doesn't have the json, it should load last.
+                };
+                modData.modPath = modDirectories[i];
+                modDataList.Add(modData);
+            }
+        }
+        List<ModInfo> prioritizedModInfo = modDataList.OrderBy(o => o.priority).ToList();
+        for (int i = 0; i < prioritizedModInfo.Count; i++)
+        {
+            if(hasErrored) break;
+            string modPath =  Path.Combine(modsDirectory, Path.GetFileName(prioritizedModInfo[i].modPath));
             Console.WriteLine($"Loading mod from \"{modPath}\"...");
-            string dllPath = Path.Combine(modPath, Path.GetFileName(modDirectories[i]) + ".dll");
+            string dllPath = Path.Combine(modPath, Path.GetFileName(prioritizedModInfo[i].modPath) + ".dll");
             if (File.Exists(dllPath))
             {
                 UndertaleData backupOfBeforeData = data;
@@ -67,12 +106,12 @@ class GS2ML
                     MethodInfo loadMethod = type.GetMethod("Load");
                     for (var t = 0; t < types.Length; t++)
                     {
-                        type = types[t];
-                        loadMethod = type.GetMethod("Load");
                         if (loadMethod != null)
                         {
                             break;
                         }
+                        type = types[t];
+                        loadMethod = type.GetMethod("Load");
                     }
                     object instanceOfType = Activator.CreateInstance(type);
 
@@ -80,7 +119,7 @@ class GS2ML
 
                     int audioGroup = 0;
                     loadMethod.Invoke(instanceOfType, new object[] { audioGroup, data });
-                    Console.WriteLine($"Successfully loaded mod \"{Path.GetFileName(modDirectories[i])}\"");
+                    Console.WriteLine($"Successfully loaded mod \"{Path.GetFileName(prioritizedModInfo[i].modPath)}\"");
                 }
                 catch (TargetInvocationException tie)
                 {
@@ -138,4 +177,13 @@ Continue? (y to continue, anything else to exit.)
         }
         Process.Start(gameExecutable, $"-game \"{outputDataWinPath}\"" + argstring);
     }
+}
+
+public class ModInfo
+{
+    public string modPath = "";
+    public string modName { get; set; }
+    public string[] authors { get; set; }
+    public string description { get; set; }
+    public int priority { get; set; }
 }
