@@ -14,3 +14,8 @@ https://discord.gg/ejDDx3ady3
 https://github.com/cgytrus/gmml  
 which is based on  
 https://github.com/krzys-h/UndertaleModTool  
+
+# To do list:
+-Finish documentation  
+-Add blacklist.txt and whitelist.txt support  
+-(MAYBE) find a way to do C# interop without having to hook into the exe and break every time the runtime updates like GMML did. Not sure if this is even possible, lmao.  
