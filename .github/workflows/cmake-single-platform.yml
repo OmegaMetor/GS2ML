@@ -39,7 +39,7 @@ jobs:
         
         # Download and extract pkg-config using curl
         mkdir $pkgConfigDir
-        curl -L -o "$pkgConfigDir\msys2.tar.xz" $pkgConfigUrl
+        curl -o "$pkgConfigDir\msys2.tar.xz" $pkgConfigUrl
         tar -xvf "$pkgConfigDir\msys2.tar.xz" -C "$pkgConfigDir" --strip-components=1
         
         # Add pkg-config to PATH
