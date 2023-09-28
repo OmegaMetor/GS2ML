@@ -36,20 +36,20 @@ jobs:
       run: |
         $pkgConfigUrl = 'https://github.com/msys2/msys2-runtime/releases/download/2021-08-12/msys2-base-x86_64-2021-08-12.tar.xz'
         $pkgConfigDir = "$env:USERPROFILE\pkg-config"
-
-        # Download and extract pkg-config
+        
+        # Download and extract pkg-config using curl
         mkdir $pkgConfigDir
-        Invoke-WebRequest -Uri $pkgConfigUrl -OutFile "$pkgConfigDir\msys2.tar.xz"
+        curl -L -o "$pkgConfigDir\msys2.tar.xz" $pkgConfigUrl
         tar -xvf "$pkgConfigDir\msys2.tar.xz" -C "$pkgConfigDir" --strip-components=1
-
+        
         # Add pkg-config to PATH
         $env:PATH = "$pkgConfigDir\usr\bin;$env:PATH"
         Write-Host "Updated PATH: $env:PATH"
-
+        
         # Verify installation
         pkg-config --version
       shell: powershell
-
+  
     - name: Download and install Mono
       run: |
         $monoUrl = 'https://download.mono-project.com/archive/6.12.0/windows-installer/mono-6.12.0.199-x64-0.msi'
