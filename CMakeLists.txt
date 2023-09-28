@@ -24,3 +24,7 @@ set(Output_Bin_Dir "${CMAKE_SOURCE_DIR}/out/bin/")
 add_subdirectory ("gs2ml-cxx")
 
 add_subdirectory("gs2ml-csharp")
+
+add_subdirectory("gs2ml-interop")
+
+add_subdirectory("gs2ml-interopbridge")

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\undertalemodtool-src\UndertaleModLib\UndertaleModLib.csproj" />
+    <ProjectReference Include="..\gs2ml-interopbridge\gs2ml-interopbridge.csproj" />
   </ItemGroup>
 
   <ItemGroup>

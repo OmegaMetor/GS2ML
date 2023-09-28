@@ -1,0 +1,12 @@
+C:\Users\Ethan\Desktop\Repos\GS2ML\gs2ml-interopbridge\bin\Debug\net6.0\gs2ml-interopbridge.deps.json
+C:\Users\Ethan\Desktop\Repos\GS2ML\gs2ml-interopbridge\bin\Debug\net6.0\gs2ml-interopbridge.dll
+C:\Users\Ethan\Desktop\Repos\GS2ML\gs2ml-interopbridge\bin\Debug\net6.0\gs2ml-interopbridge.pdb
+C:\Users\Ethan\Desktop\Repos\GS2ML\gs2ml-interopbridge\obj\Debug\net6.0\gs2ml-interopbridge.csproj.AssemblyReference.cache
+C:\Users\Ethan\Desktop\Repos\GS2ML\gs2ml-interopbridge\obj\Debug\net6.0\gs2ml-interopbridge.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ethan\Desktop\Repos\GS2ML\gs2ml-interopbridge\obj\Debug\net6.0\gs2ml-interopbridge.AssemblyInfoInputs.cache
+C:\Users\Ethan\Desktop\Repos\GS2ML\gs2ml-interopbridge\obj\Debug\net6.0\gs2ml-interopbridge.AssemblyInfo.cs
+C:\Users\Ethan\Desktop\Repos\GS2ML\gs2ml-interopbridge\obj\Debug\net6.0\gs2ml-interopbridge.csproj.CoreCompileInputs.cache
+C:\Users\Ethan\Desktop\Repos\GS2ML\gs2ml-interopbridge\obj\Debug\net6.0\gs2ml-interopbridge.dll
+C:\Users\Ethan\Desktop\Repos\GS2ML\gs2ml-interopbridge\obj\Debug\net6.0\refint\gs2ml-interopbridge.dll
+C:\Users\Ethan\Desktop\Repos\GS2ML\gs2ml-interopbridge\obj\Debug\net6.0\gs2ml-interopbridge.pdb
+C:\Users\Ethan\Desktop\Repos\GS2ML\gs2ml-interopbridge\obj\Debug\net6.0\ref\gs2ml-interopbridge.dll
