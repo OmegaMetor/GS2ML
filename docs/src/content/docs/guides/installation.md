@@ -53,4 +53,4 @@ Once you've installed visual studio and the specific components, you now can clo
 ## Final Step
 No matter which way you install it, you gotta try it at the end.
 ### Running the game
-Now, just run the game! If it worked, you should see a console window open, show some logs, then relaunch the game with a new console window, then open as normal. If this doesn't happen, you'll probably be shown some logs, so either figure them out, or ask on discord (server TDB)
+Now, just run the game! If it worked, you should see a console window open, show some logs, then relaunch the game with a new console window, then open as normal. If this doesn't happen, you'll probably be shown some logs, so either figure them out, or ask on [discord](https://discord.gg/ejDDx3ady3)
