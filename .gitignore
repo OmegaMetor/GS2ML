@@ -1,7 +1,7 @@
 .vs/
 out/
-gs2ml-csharp/bin/
-gs2ml-csharp/obj/
+bin/
+obj/
 .vscode/
 build/
 undertalemodtool-src/
