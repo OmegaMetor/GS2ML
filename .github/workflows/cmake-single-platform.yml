@@ -32,23 +32,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Download and install pkg-config for Windows
-      run: |
-        $pkgConfigUrl = 'https://github.com/msys2/msys2-runtime/releases/download/2021-08-12/msys2-base-x86_64-2021-08-12.tar.xz'
-        $pkgConfigDir = "$env:USERPROFILE\pkg-config"
-        
-        # Download and extract pkg-config using curl
-        mkdir $pkgConfigDir
-        curl -o "$pkgConfigDir\msys2.tar.xz" $pkgConfigUrl
-        tar -xvf "$pkgConfigDir\msys2.tar.xz" -C "$pkgConfigDir" --strip-components=1
-        
-        # Add pkg-config to PATH
-        $env:PATH = "$pkgConfigDir\usr\bin;$env:PATH"
-        Write-Host "Updated PATH: $env:PATH"
-        
-        # Verify installation
-        pkg-config --version
-      shell: powershell
+    - name: Set PKG_CONFIG_PATH
+      env:
+        PATH: '.\tools\:$PATH'
+      run: echo "PATH is $PATH"
   
     - name: Download and install Mono
       run: |
