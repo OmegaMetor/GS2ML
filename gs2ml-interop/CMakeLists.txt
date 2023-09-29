@@ -9,7 +9,7 @@ add_library(gs2ml-interop MODULE
     src/interop.cpp
 )
 
-find_package(PkgConfig required)
+find_package(PkgConfig REQUIRED)
 
 if(DEFINED ENV{GITHUB_ACTIONS})
     target_include_directories(gs2ml-interop PRIVATE "${CMAKE_SOURCE_DIR}/gs2ml-interop/lib/mono-2.0")
