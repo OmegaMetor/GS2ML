@@ -9,14 +9,9 @@ add_library(gs2ml-interop MODULE
     src/interop.cpp
 )
 
-find_package(PkgConfig)
+find_package(PkgConfig required)
 
-if(PkgConfig_FOUND)
-    pkg_check_modules(MONO REQUIRED monosgen-2)
-    target_include_directories(gs2ml-interop PRIVATE ${MONO_INCLUDE_DIRS})
-    target_link_directories(gs2ml-interop PRIVATE ${MONO_LIBRARY_DIRS})
-    target_link_libraries(gs2ml-interop ${MONO_LIBRARIES})
-else()
+if(DEFINED ENV{GITHUB_ACTIONS})
     target_include_directories(gs2ml-interop PRIVATE "${CMAKE_SOURCE_DIR}/gs2ml-interop/lib/mono-2.0")
     target_link_directories(gs2ml-interop PRIVATE "${CMAKE_SOURCE_DIR}/gs2ml-interop/lib")
     target_link_libraries(gs2ml-interop 
@@ -29,6 +24,11 @@ else()
         "advapi32"
         "version"
     )
+else()
+    pkg_check_modules(MONO REQUIRED monosgen-2)
+    target_include_directories(gs2ml-interop PRIVATE ${MONO_INCLUDE_DIRS})
+    target_link_directories(gs2ml-interop PRIVATE ${MONO_LIBRARY_DIRS})
+    target_link_libraries(gs2ml-interop ${MONO_LIBRARIES})
 endif()
 
 add_compile_definitions(OS_Windows)
