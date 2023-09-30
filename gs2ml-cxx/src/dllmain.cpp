@@ -37,8 +37,6 @@ std::filesystem::path getSystemDirectory() {
 }
 
 bool hasLoaded = false;
-bool hasGameArg = false;
-
 
 bool loadProxy() {
     const auto libPath = getSystemDirectory() / PROXY_DLL;
@@ -55,7 +53,7 @@ bool loadProxy() {
 
 void loadMods() {
     // Check if the game is being launched with the -game argument.
-    if (hasGameArg || hasLoaded) return;
+    if (hasLoaded) return;
     hasLoaded = true;
     LPWSTR lpCmdLine = GetCommandLine();
     std::wstring commandLine(lpCmdLine);
@@ -71,10 +69,8 @@ void loadMods() {
     {
         std::wstring argument(argv[i]);
         if (argument == L"-game")
-            hasGameArg = true;
+            return;
     }
-    if (hasGameArg)
-        return;
 
     // End check
 
@@ -160,14 +156,13 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
     {
         std::wstring argument(argv[i]);
         if (argument == L"-game")
-            hasGameArg = true;
+            return TRUE;
     }
-    if (!hasGameArg) {
-        HANDLE thisThread = OpenThread(THREAD_ALL_ACCESS, FALSE, GetCurrentThreadId());
-        HANDLE loaderThread = CreateThread(NULL, 0, ThreadProc, thisThread, 0, NULL);
-        if (loaderThread == 0) 
-            return FALSE;
-    }
+
+    HANDLE thisThread = OpenThread(THREAD_ALL_ACCESS, FALSE, GetCurrentThreadId());
+    HANDLE loaderThread = CreateThread(NULL, 0, ThreadProc, thisThread, 0, NULL);
+    if (loaderThread == 0) 
+        return FALSE;
 
     return TRUE;
 }
