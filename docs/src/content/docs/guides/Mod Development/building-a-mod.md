@@ -1,7 +1,7 @@
 ---
 title: Building your mod
 description: How to build your mod once it's ready for testing.
-  order: 4
+order: 4
 ---
 
 # Building your mod
