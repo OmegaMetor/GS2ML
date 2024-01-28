@@ -27,4 +27,10 @@ To install the template, first open the folder you placed it in in cmd, or anoth
 
 Then, from in that folder, run `dotnet new install .`
 
-Once done, you should be able to use the template to create new mods.
+Once done, you should be able to use the template to create new mods using `dotnet new gs2ml`.
+
+# Easy Mode
+The mod template also includes the option for an "easy mode". This version of the template adds functions that do certain things you would usually be doing a lot in gs2ml with one function.  
+It also comes with a system where all you have to do to add custom code is add a `____.gml` file to the `assets/code` folder and then use one of the "Add code from file" functions to hook or create the contents of that file.
+To create the template as EASY MODE, add a `-e` to the end of the function you normally call:
+`dotnet new gs2ml -e`
