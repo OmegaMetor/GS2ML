@@ -9,7 +9,7 @@ The template is the easiest way to start making a gs2ml mod. When used, it autom
 
 Before you can use it, though, you need to install it. This page covers doing that.
 
-# Obtaining the template files
+# Obtaining the Template Files
 There are 2 main ways you can get the template files.
 One of these is through the github releases, the other is through compiling gs2ml.
 
@@ -17,7 +17,7 @@ One of these is through the github releases, the other is through compiling gs2m
 To download the template files from github actions, first go to the [gs2ml releases page](https://github.com/OmegaMetor/GS2ML/releases). From the latest release, download the `mod_template.zip` file.
 Extract this somewhere safe.
 
-## Compiling it yourself
+## Compiling it Yourself
 When compiling it, there isn't much that needs to be done. Simply follow [the normal gs2ml build instructions](/GS2ML/guides/installation/#compiling-gs2ml), and in the main folder for gs2ml there will be the mod_template folder for you to use.
 
 # Installing the Template
@@ -35,5 +35,6 @@ It also comes with a system where all you have to do to add custom code is add a
 To create the template as EASY MODE, add a `-e` to the end of the function you normally call:
 `dotnet new gs2ml -e`
 
-# Bonus: Code highlighting for GML files
+# Bonus: Code Highlighting for GML Files
 If you have Visual Studio Code installed, there are extensions on the extensions marketplace that you can download. They can add CODE HIGHLIGHTING and INTELLISENSE to `_____.gml` files.
+Download Visual Studio Code [HERE](https://code.visualstudio.com/)
