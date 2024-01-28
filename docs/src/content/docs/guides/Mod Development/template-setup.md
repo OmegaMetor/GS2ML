@@ -34,3 +34,6 @@ The mod template also includes the option for an "easy mode". This version of th
 It also comes with a system where all you have to do to add custom code is add a `____.gml` file to the `assets/code` folder and then use one of the "Add code from file" functions to hook or create the contents of that file.
 To create the template as EASY MODE, add a `-e` to the end of the function you normally call:
 `dotnet new gs2ml -e`
+
+# Bonus: Code highlighting for GML files
+If you have Visual Studio Code installed, there are extensions on the extensions marketplace that you can download. They can add CODE HIGHLIGHTING and INTELLISENSE to `_____.gml` files.
