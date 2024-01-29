@@ -7,6 +7,7 @@ using System.Diagnostics;
 using static System.Environment;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Linq;
 
 //NOTE TO PEOPLE LOOKING AT THIS CODE
 //Path.Combine() breaks the thing sometimes. I DONT KNOW WHY, IT SHOULDNT BE HAPPENING.
@@ -50,7 +51,16 @@ class GS2ML
         Console.WriteLine(modsDirectory);
         string[] modDirectories = Directory.GetDirectories(modsDirectory);
         bool hasErrored = false;
-
+        string[] blacklisted;
+        string[] whitelisted;
+        if (File.Exists(Path.Combine(gs2mlDirectory, "blacklist.txt")))
+        {
+            blacklisted = File.ReadAllLines(Path.Combine(gs2mlDirectory, "blacklist.txt");
+        }
+        if (File.Exists(Path.Combine(gs2mlDirectory, "whitelist.txt")))
+        {
+            whitelistd = File.ReadAllLines(Path.Combine(gs2mlDirectory, "whitelist.txt");
+        }
         List<ModInfo> modDataList = new List<ModInfo>();
         for (int i = 0; i < modDirectories.Length; i++)
         {
@@ -81,6 +91,17 @@ class GS2ML
                     description = "This mod does not have a modinfo.json file. This could be because it is an old mod or because the owner forgot to add one.",
                     priority = 999999 // If it doesn't have the json, it should load last.
                 };
+
+                if(whitelisted.Length != 0)
+                {
+                    if(!(Array.IndexOf(whitelisted, modData.modName) >= 0))
+                        continue
+                }
+                if(Array.IndexOf(blacklisted, modData.modName) >= 0)
+                {
+                    continue
+                }
+                
                 modData.modPath = modDirectories[i];
                 modDataList.Add(modData);
             }
