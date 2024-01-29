@@ -51,8 +51,8 @@ class GS2ML
         Console.WriteLine(modsDirectory);
         string[] modDirectories = Directory.GetDirectories(modsDirectory);
         bool hasErrored = false;
-        string[] blacklisted;
-        string[] whitelisted;
+        string[] blacklisted = {};
+        string[] whitelisted = {};
         if (File.Exists(Path.Combine(gs2mlDirectory, "blacklist.txt")))
         {
             blacklisted = File.ReadAllLines(Path.Combine(gs2mlDirectory, "blacklist.txt"));
