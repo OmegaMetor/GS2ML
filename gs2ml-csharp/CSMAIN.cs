@@ -55,11 +55,11 @@ class GS2ML
         string[] whitelisted;
         if (File.Exists(Path.Combine(gs2mlDirectory, "blacklist.txt")))
         {
-            blacklisted = File.ReadAllLines(Path.Combine(gs2mlDirectory, "blacklist.txt");
+            blacklisted = File.ReadAllLines(Path.Combine(gs2mlDirectory, "blacklist.txt"));
         }
         if (File.Exists(Path.Combine(gs2mlDirectory, "whitelist.txt")))
         {
-            whitelistd = File.ReadAllLines(Path.Combine(gs2mlDirectory, "whitelist.txt");
+            whitelistd = File.ReadAllLines(Path.Combine(gs2mlDirectory, "whitelist.txt"));
         }
         List<ModInfo> modDataList = new List<ModInfo>();
         for (int i = 0; i < modDirectories.Length; i++)
