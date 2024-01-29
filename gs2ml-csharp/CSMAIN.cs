@@ -95,11 +95,11 @@ class GS2ML
                 if(whitelisted.Length != 0)
                 {
                     if(!(Array.IndexOf(whitelisted, modData.modName) >= 0))
-                        continue
+                        continue;
                 }
                 if(Array.IndexOf(blacklisted, modData.modName) >= 0)
                 {
-                    continue
+                    continue;
                 }
                 
                 modData.modPath = modDirectories[i];
